@@ -1,5 +1,6 @@
 // client/api/quote.js
-import { json } from '@vercel/node';
+// Client-side helper: export quotes and a small helper to get a random quote.
+// This file is bundled by Vite for the browser, so it must not import server-only packages.
 
 const QUOTES = [
   { quote: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
@@ -9,12 +10,8 @@ const QUOTES = [
   { quote: "The future depends on what you do today.", author: "Mahatma Gandhi" }
 ];
 
-export default function handler(req, res) {
-  try {
-    const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
-    return res.status(200).json(q);
-  } catch (err) {
-    console.error("Quote function error:", err);
-    return res.status(500).json({ error: "Could not fetch quote." });
-  }
+export function getRandomQuote() {
+  return QUOTES[Math.floor(Math.random() * QUOTES.length)];
 }
+
+export default QUOTES;
